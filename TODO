@@ -1,0 +1,2 @@
+Route check whether the requested uri hits the route.
+Request build a request param from uri.

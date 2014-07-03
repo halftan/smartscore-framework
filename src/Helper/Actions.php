@@ -3,8 +3,11 @@ namespace \Smartscore\Helper;
 
 class Actions {
 
-    public static function redirect($url, $status = 302) {
-        header("Location: $url", true, $status);
+    # Redirects to $target page
+    #
+    # @param string Url to redirect to.
+    public static function redirect($target, $status = 302) {
+        header("Location: $target", true, $status);
         die();
     }
 

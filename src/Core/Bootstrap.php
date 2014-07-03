@@ -1,21 +1,12 @@
 <?php
-namespace \Smartscore\Bootstrap;
+namespace SmartscoreFramework\Core;
+
+use SmartscoreFramework\Core\Router\Router;
+use SmartscoreFramework\Core\Application\Base;
 
 class Bootstrap {
 
-    #
-    #@var array Contains path info.
-    #  keys:
-    #       - root
-    #       - public
-    #       - config
-    #       - controller
-    #       - view
-    #       - model
-    private $paths;
-    private $classSuffix;
-
-    public function __construct(array $pathConf) {
+    public static function createApplication(array $pathConf=array()) {
         $pathDefault = array(
             'config'     => 'config',
             'controller' => 'controller',
@@ -27,6 +18,7 @@ class Bootstrap {
                 'view'       => 'View'
             )
         );
+        $paths = $classSuffix = array();
         $pathConf = array_merge($pathDefault, $pathConf);
         $paths['root']       = dirname($_SERVER['DOCUMENT_ROOT']);
         $paths['public']     = $_SERVER['DOCUMENT_ROOT'];
@@ -36,5 +28,7 @@ class Bootstrap {
         $paths['view']       = $paths['root']."/{$pathConf['view']}";
 
         $classSuffix         = $pathConf['suffix'];
+
+        return new Base($paths, $classSuffix);
     }
 }
