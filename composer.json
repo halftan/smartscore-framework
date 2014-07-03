@@ -1,6 +1,6 @@
 {
-    "name": "ecnu_dm/smartscore",
-    "description": "A highly customizable data analysis web platform.",
+    "name": "ecnu_dm/smartscore-framework",
+    "description": "A PHP microframework for smartscore.",
     "license": "proprietary",
     "authors": [
         {
