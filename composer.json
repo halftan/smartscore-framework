@@ -1,0 +1,18 @@
+{
+    "name": "ecnu_dm/smartscore",
+    "description": "A highly customizable data analysis web platform.",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "HalFtaN",
+            "email": "half.a.tan@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload" : {
+        "psr-4": {
+            "Smartscore" : "src"
+        }
+    }
+}
