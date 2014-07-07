@@ -6,12 +6,15 @@ use SmartscoreFramework\Core\Application\Base;
 
 class Bootstrap {
 
-    public static function createApplication(array $pathConf=array()) {
+    public static function createApplication(
+        $namespace,
+        array $pathConf=array()) {
+
         $pathDefault = array(
-            'config'     => 'config',
-            'controller' => 'controller',
-            'model'      => 'model',
-            'view'       => 'view',
+            'config'     => 'Config',
+            'controller' => 'Controller',
+            'model'      => 'Model',
+            'view'       => 'View',
             'suffix'     => array(
                 'controller' => 'Controller',
                 'model'      => 'Model',
@@ -20,15 +23,15 @@ class Bootstrap {
         );
         $paths = $classSuffix = array();
         $pathConf = array_merge($pathDefault, $pathConf);
-        $paths['root']       = dirname($_SERVER['DOCUMENT_ROOT']);
+        $paths['app']       = dirname($_SERVER['DOCUMENT_ROOT']).'/app';
         $paths['public']     = $_SERVER['DOCUMENT_ROOT'];
-        $paths['config']     = $paths['root']."/{$pathConf['config']}";
-        $paths['controller'] = $paths['root']."/{$pathConf['controller']}";
-        $paths['model']      = $paths['root']."/{$pathConf['model']}";
-        $paths['view']       = $paths['root']."/{$pathConf['view']}";
+        $paths['config']     = $paths['app']."/{$pathConf['config']}";
+        $paths['controller'] = $paths['app']."/{$pathConf['controller']}";
+        $paths['model']      = $paths['app']."/{$pathConf['model']}";
+        $paths['view']       = $paths['app']."/{$pathConf['view']}";
 
         $classSuffix         = $pathConf['suffix'];
 
-        return new Base($paths, $classSuffix);
+        return new Base($namespace, $paths, $classSuffix);
     }
 }
