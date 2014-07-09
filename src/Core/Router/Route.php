@@ -87,22 +87,24 @@ class Route {
 
     public function call($app, $params) {
         if (is_string($this->target)) {
+            # Parse action string like controller:action
+            # action defaults to _default
             $pos = strpos($this->target, ':');
             if ($pos != false) {
-                $action       = '_'.lcfirst(substr($this->target, $pos + 1));
+                $action       = lcfirst(substr($this->target, $pos + 1));
                 $this->target = substr($this->target, 0, $pos);
             } else {
-                $action = "_action";
+                $action = "default";
             }
 
             $this->target = array(
                 $app->buildCallable($this->target, 'controller'),
-                $this->method.$action
+                $this->method.'_'.$action
             );
 
             try {
                 $controllerRef   = new \ReflectionClass($this->target[0]);
-                $controller      = $controllerRef->newInstanceArgs(array($app));
+                $controller      = $controllerRef->newInstanceArgs(array($app, $action));
                 $this->target[0] = $controller;
 
                 call_user_func($this->target, $app, $params);

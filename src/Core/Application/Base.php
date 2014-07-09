@@ -49,29 +49,33 @@ class Base {
 
     public function run() {
         # Find route
-        $method = $_SERVER['REQUEST_METHOD'];
-        $uri    = $_SERVER['REQUEST_URI'];
-        $route  = $this->router->findRoute($method, $uri);
-        if (empty($route)) {
-            throw new RouteNotFoundException("No route found for uri {$uri}.");
-        }
+        try {
+            $method = $_SERVER['REQUEST_METHOD'];
+            $uri    = $_SERVER['REQUEST_URI'];
+            $route  = $this->router->findRoute($method, $uri);
+            if (empty($route)) {
+                throw new RouteNotFoundException("No route found for uri {$uri}.");
+            }
 
-        # Inflate uri params
-        $params = $route->inflateParams($uri);
+            # Inflate uri params
+            $params = $route->inflateParams($uri);
 
-        # Get the controller or view name
-        $viewOrController = $route->call($this, $params);
-        if ($viewOrController instanceof BasicController) {
-            $viewName  = $viewOrController->getView();
-            $viewParam = $viewOrController->getViewParam();
-        } else {
-            $viewName = $viewOrController;
-        }
+            # Get the controller or view name
+            $viewOrController = $route->call($this, $params);
+            if ($viewOrController instanceof BasicController) {
+                $viewName  = $viewOrController->getView();
+                $viewParam = $viewOrController->getViewParam();
+            } else {
+                $viewName = $viewOrController;
+            }
 
-        # Render the view
-        if (!empty($viewName)) {
-            $view = new View($this, $viewName);
-            echo $view->render($viewParam);
+            # Render the view
+            if (!empty($viewName)) {
+                $view = new View($this, $viewName);
+                echo $view->render($viewParam);
+            }
+        } catch (\Exception $e) {
+            var_dump($e);
         }
     }
 
@@ -98,6 +102,10 @@ class Base {
 
     public function getPath($path) {
          return $this->paths[$path];
+    }
+
+    public function getSuffix($type) {
+         return $this->classSuffix[$type];
     }
 
 }
