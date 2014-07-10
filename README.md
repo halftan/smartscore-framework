@@ -69,10 +69,11 @@ $app->run();
 
 * Controller参数说明
 
-        控制器中方法的参数共有两个，第一个为$app，即当前application上下文，可从中获取各种设置
-        第二个为$params，为url参数及QueryString参数的合集，可从中获取请求参数
+控制器中方法的参数共有两个，第一个为`$app`，即当前`application`上下文，可从中获取各种设置
+第二个为`$params`，为`url`参数及`QueryString`参数的合集，可从中获取请求参数
         
 ```php
+<?php
 class HomeController {
     public function get_test($app, $params) { ... }
 }
@@ -80,11 +81,13 @@ class HomeController {
 
 * View Render
 
-        在controller中调用$this->setView方法，可以设置Main View及Partial View的名称，框架会自动寻找其真实路径。
-        在view中可调用$this->__yield($partial_name)来渲染特定的Partial View。
+在`controller`中调用`$this->setView`方法，可以设置`Main View`及`Partial View`的名称，框架会自动寻找其真实路径。
+在`view`中可调用`$this->__yield($partial_name)`来渲染特定的`Partial View`。
 
 * Redirection 重定向
 
-        重定向的Helper为SmartscoreFramework\Helper\Actions::redirect，其函数签名为：
-        public static function redirect($target, $status = 302)
-        $target为想要重定向到的url，$status为重定向的HTTP CODE，一般为302或303
+重定向的`Helper`为`SmartscoreFramework\Helper\Actions::redirect`，其函数签名为：
+```php
+public static function redirect($target, $status = 302)
+```
+`$target`为想要重定向到的`url`，`$status`为重定向的`HTTP CODE`，一般为`302`或`303`
