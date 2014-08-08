@@ -1,5 +1,5 @@
 <?php
-namespace \Smartscore\Helper;
+namespace SmartscoreFramework\Helper;
 
 class Actions {
 

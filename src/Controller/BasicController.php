@@ -18,8 +18,9 @@ class BasicController {
     private $action;
 
     public function __construct($app, $action) {
-        $this->app    = $app;
-        $this->action = $action;
+        $this->app       = $app;
+        $this->action    = $action;
+        $this->viewParam = array();
     }
 
     public function __toString() {
