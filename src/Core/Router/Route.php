@@ -69,7 +69,9 @@ class Route {
     public function inflateParams($uri) {
         $uriInfo = parse_url($uri);
         $path    = $uriInfo['path'];
-        $query   = isset($uriInfo['query']) ? $uriInfo['query'] : array();
+        $query   = array();
+
+        isset($uriInfo['query']) ? parse_str($uriInfo['query'], $query) : array();
 
         $params  = array();
 
@@ -82,6 +84,7 @@ class Route {
             assert(isset($path[$key]), "Param '$value' must exist.");
             $params[substr($value, 1)] = $path[$key];
         }
+        var_dump($query);
         return $params + $query;
     }
 
